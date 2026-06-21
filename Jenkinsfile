@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/Stark734/jenkins-node-app.git'
+                git branch: 'main', url: 'https://github.com/Stark734/jenkins-node-app.git'
             }
         }
 
@@ -15,11 +15,21 @@ pipeline {
             }
         }
 
-        stage('Test / Validate') {
+        stage('Validate Code') {
             steps {
                 sh 'node -c app.js'
             }
         }
 
+    }
+
+    post {
+        success {
+            echo 'CI Pipeline SUCCESS 🚀'
+        }
+
+        failure {
+            echo 'CI Pipeline FAILED ❌'
+        }
     }
 }
